@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Subject from './Subject'
 import Result from './Result'
@@ -35,28 +35,24 @@ const Div=styled.div`
 `
 
 const Home = () => {
-    const {searchsubjectQuery,searchbyTitle}=useGlobalContext();
+    const {searchBySubject,searchByTitle}=useGlobalContext();
 
  
   return (
     <div>
         <Container>
             <Left>
-                <PlaceHolder onKeyDown={(e)=>{(searchsubjectQuery(e))}} placeholder='Type subject'/>
+                <PlaceHolder onKeyDown={(e)=>{(searchBySubject(e))}} placeholder='Type subject'/>
                 <Subject  />
             </Left>
             
             <Right>
                 <Nav>
                     <Div>
-                       <PlaceHolder onKeyDown={(e)=>{{searchbyTitle(e)}}} placeholder='search by author or title'/>
-                    </Div>                                      
-                                      
-                </Nav>
-                {
-                 <Result />  
-                }
-                               
+                       <PlaceHolder onKeyDown={(e)=>{searchByTitle(e)}} placeholder='search by author or title'/>
+                    </Div>                                              
+                </Nav>                
+                <Result />           
             </Right>
         </Container>
     </div>

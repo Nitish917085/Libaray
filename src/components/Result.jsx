@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from '../context'
 
@@ -42,8 +42,8 @@ const Div3=styled.div`
 
 const Result = (searchtype) => {
 
-  const {data,changeoffsetP,changeoffsetN,isLoading,sub_or_title}=useGlobalContext();
-  console.log(sub_or_title);
+  const {data,changeOffsetPre,changeOffsetNext,isLoading,subject_or_title}=useGlobalContext();
+  console.log(subject_or_title);
 
   console.log(data);
   if(isLoading)
@@ -67,7 +67,7 @@ const Result = (searchtype) => {
               data && data.map(item=>{            
               return(<Tr>                                               
                                   <Td>{item.title}</Td>
-                                  <Td>{sub_or_title?item.author_name:item.authors[0].name}</Td>                          
+                                  <Td>{subject_or_title?item.authors[0].name:item.author_name}</Td>                          
 
                     </Tr>
                   )
@@ -77,11 +77,11 @@ const Result = (searchtype) => {
          </Table>
       </Div>    
       <Div3>
-      <Div1 value={10} onClick={()=>changeoffsetP("P")}> 
+      <Div1 value={10} onClick={()=>changeOffsetPre("P")}> 
         Pre..  
       
       </Div1>
-      <Div2 onClick={(e)=>changeoffsetN("N")}>
+      <Div2 onClick={(e)=>changeOffsetNext("N")}>
          Next
       </Div2>
       </Div3>

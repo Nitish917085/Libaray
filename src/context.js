@@ -9,7 +9,7 @@ const APITITLE_AUTH="https://openlibrary.org/search.json?";
 let Url="";
 let offset=0;
 let max_offest=20;
-var sub_or_title=false;
+let subject_or_title=true;
 
 const initialData={
     isLoading:false,
@@ -30,22 +30,22 @@ const AppProvider=({children})=>{
 const [state,dispatch]=useReducer(reducer,initialData);  // reduceer is function(action Method) it is the only extra differece from useState hook
 
 //........................................................................
-    const searchsubjectQuery=async (e)=>{        
+    const searchBySubject=(e)=>{        
         if(e.keyCode===13)
          {  
-            sub_or_title=false;
+            subject_or_title=true;
             offset=0;
-            dispatch({type:"SEARCH_SUBJECT",
+            dispatch({type:"SEARCH_BY_SUBJECT",
                      payload:e.target.value})
          }
            
     }
 //........................................................................
-        const searchbyTitle=(e)=>{
+        const searchByTitle=(e)=>{
             
             if(e.keyCode===13) 
                 {  offset=0;
-                    sub_or_title=true;
+                    subject_or_title=false;
                     let txt=e.target.value.split(' ');
                     let count=1;
                     let text="";
@@ -57,7 +57,7 @@ const [state,dispatch]=useReducer(reducer,initialData);  // reduceer is function
                             }
                             else text=text + "+" + item;
                     })     
-                    dispatch({type:"SEARCH_BY_TITLE_AUTHOR",
+                    dispatch({type:"SEARCH_BY_TITLE",
                                 payload:text
                             })
             }
@@ -83,14 +83,14 @@ useEffect(()=>{
             console.log(error);
         }};
         
-      if(state.querySubject!="")
+      if(state.querySubject!=="")
         fetchSubjects(`${APISUB}${state.querySubject}.json?ebooks=true&limit=10&offset=`)
        
     },[state.querySubject])
 //..............................................................................
     useEffect(()=>{
 
-        const fetchTitleAuthor=async(URL2)=>{
+        const fetchTitle=async(URL2)=>{
             Url=URL2;
             const URL=`${URL2}${offset}`
             dispatch({type:"SET_LOADING"})
@@ -105,9 +105,9 @@ useEffect(()=>{
                 console.log(error);
             }
         }
-        if(state.queryTitleAuthor!="")
-            fetchTitleAuthor(`${APITITLE_AUTH}q=${state.queryTitleAuthor}&limit=10&offset=`);
-    },[state.queryTitleAuthor])
+        if(state.queryTitle!=="")
+            fetchTitle(`${APITITLE_AUTH}q=${state.queryTitle}&limit=10&offset=`);
+    },[state.queryTitle])
     //.................................................
     
 
@@ -136,12 +136,12 @@ useEffect(()=>{
         }}        
  //................................................................
 
-const changeoffsetP=()=>{
+const changeOffsetPre=()=>{
     offset=offset-10; 
     if(offset>=0)
             changeoffsett();    
 }
-const changeoffsetN=()=>{
+const changeOffsetNext=()=>{
     offset= offset +10;
     if(offset<max_offest)
         changeoffsett();    
@@ -149,7 +149,7 @@ const changeoffsetN=()=>{
 //////////////////////////////////////////////////////////////////////////////////////
 
     return (
-            <AppContext.Provider value={{...state,searchsubjectQuery,searchbyTitle,changeoffsetN,changeoffsetP,sub_or_title}}>
+            <AppContext.Provider value={{...state,searchBySubject,searchByTitle,changeOffsetNext,changeOffsetPre,subject_or_title}}>
                 {children}
             </AppContext.Provider>);
 };

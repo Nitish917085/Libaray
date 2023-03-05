@@ -10,14 +10,14 @@ const reducer = (state,action)=>{
                 data:action.payload,
                 isLoading:false,
             }
-        case "SEARCH_SUBJECT":
+        case "SEARCH_BY_SUBJECT":
             return {
                 ...state,querySubject:action.payload,
                 
             }
-        case "SEARCH_BY_TITLE_AUTHOR":
+        case "SEARCH_BY_TITLE":
                 return{
-                    ...state,queryTitleAuthor:action.payload,
+                    ...state,queryTitle:action.payload,
                     
                 }       
 
