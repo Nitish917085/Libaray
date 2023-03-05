@@ -14,7 +14,7 @@ let subject_or_title=true;
 const initialData={
     isLoading:false,
     querySubject: "",
-    queryTitleAuthor:"",
+    queryTitle:"",
     page_no:1,
     data:[], 
     objdata:{},    
@@ -79,7 +79,7 @@ useEffect(()=>{
                         payload:resjson.works,                
                         });
                       
-        }catch(error){
+             }catch(error){
             console.log(error);
         }};
         

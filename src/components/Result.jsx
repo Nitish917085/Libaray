@@ -57,23 +57,17 @@ const Result = (searchtype) => {
                   <Tr>
                         <Th>Title</Th>
                         <Th>Author</Th>
-
                   </Tr>  
-
           </thead>
-          
-
             { 
               data && data.map(item=>{            
               return(<Tr>                                               
                                   <Td>{item.title}</Td>
-                                  <Td>{subject_or_title?item.authors[0].name:item.author_name}</Td>                          
+                                  {/* <Td>{subject_or_title?item.authors[0].name:item.author_name}</Td>                           */}
 
-                    </Tr>
-                  )
-           })
+                    </Tr>)
+            })
          }
-         
          </Table>
       </Div>    
       <Div3>
