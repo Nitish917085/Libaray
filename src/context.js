@@ -83,7 +83,7 @@ useEffect(()=>{
             console.log(error);
         }};
         
-      if(state.querySubject!=="")
+      if(state.querySubject != "")
         fetchSubjects(`${APISUB}${state.querySubject}.json?ebooks=true&limit=10&offset=`)
        
     },[state.querySubject])
@@ -105,7 +105,7 @@ useEffect(()=>{
                 console.log(error);
             }
         }
-        if(state.queryTitle!=="")
+        if(state.queryTitle != "")
             fetchTitle(`${APITITLE_AUTH}q=${state.queryTitle}&limit=10&offset=`);
     },[state.queryTitle])
     //.................................................

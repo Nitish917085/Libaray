@@ -35,8 +35,7 @@ const Div=styled.div`
 `
 
 const Home = () => {
-    const {searchBySubject,searchByTitle}=useGlobalContext();
-
+  const {searchBySubject,searchByTitle}=useGlobalContext();
  
   return (
     <div>

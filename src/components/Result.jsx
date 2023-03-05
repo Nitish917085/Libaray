@@ -77,13 +77,8 @@ const Result = (searchtype) => {
          </Table>
       </Div>    
       <Div3>
-      <Div1 value={10} onClick={()=>changeOffsetPre("P")}> 
-        Pre..  
-      
-      </Div1>
-      <Div2 onClick={(e)=>changeOffsetNext("N")}>
-         Next
-      </Div2>
+            <Div1 onClick={()=>changeOffsetPre()}>  Pre..  </Div1>
+            <Div2 onClick={()=>changeOffsetNext()}> Next </Div2>
       </Div3>
 
     </div>
