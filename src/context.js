@@ -8,8 +8,7 @@ const APISUB="https://openlibrary.org/subjects/";
 const APITITLE_AUTH="https://openlibrary.org/search.json?";
 let Url="";
 let offset=0;
-let max_offest=20;
-let subject_or_title=true;
+let max_offest=7;
 
 const initialData={
     isLoading:false,
@@ -17,12 +16,12 @@ const initialData={
     queryTitle:"",
     page_no:1,
     data:[], 
-    objdata:{},    
+    disabled:"disabled", 
 }
 const AppContext=React.createContext();
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-//.......................................................................................
+//............................................................................................
 
 //createing provider function
 const AppProvider=({children})=>{
@@ -33,19 +32,36 @@ const [state,dispatch]=useReducer(reducer,initialData);  // reduceer is function
     const searchBySubject=(e)=>{        
         if(e.keyCode===13)
          {  
-            subject_or_title=true;
             offset=0;
+            let txt=e.target.value.split(' ');
+            let count=1;
+                    let text="";
+                    txt.map((item)=>{
+                            if(count)
+                            {
+                                text=item;
+                                count=0;
+                            }
+                            else text=text + "+" + item;
+                    })    
             dispatch({type:"SEARCH_BY_SUBJECT",
-                     payload:e.target.value})
+                     payload:text})
          }
            
+    }
+
+    const searchBySubjectByTrend=(value)=>{  
+        console.log(value);      
+         
+            offset=0;
+            dispatch({type:"SEARCH_BY_SUBJECT",
+                     payload:value})
     }
 //........................................................................
         const searchByTitle=(e)=>{
             
             if(e.keyCode===13) 
                 {  offset=0;
-                    subject_or_title=false;
                     let txt=e.target.value.split(' ');
                     let count=1;
                     let text="";
@@ -108,7 +124,7 @@ useEffect(()=>{
         if(state.queryTitle != "")
             fetchTitle(`${APITITLE_AUTH}q=${state.queryTitle}&limit=10&offset=`);
     },[state.queryTitle])
-    //.................................................
+//...................................................................................
     
 
     const changeoffsett= async()=>{
@@ -134,22 +150,24 @@ useEffect(()=>{
         }catch(error){
             console.log(error);
         }}        
- //................................................................
+ //.........................................................................................
 
 const changeOffsetPre=()=>{
     offset=offset-10; 
     if(offset>=0)
-            changeoffsett();    
+        changeoffsett();    
 }
+//...........................................................................................
 const changeOffsetNext=()=>{
     offset= offset +10;
-    if(offset<max_offest)
+    console.log(offset,max_offest);
+    if(offset<max_offest-1)
         changeoffsett();    
 }
 //////////////////////////////////////////////////////////////////////////////////////
 
     return (
-            <AppContext.Provider value={{...state,searchBySubject,searchByTitle,changeOffsetNext,changeOffsetPre,subject_or_title}}>
+            <AppContext.Provider value={{...state,offset,searchBySubject,searchBySubjectByTrend,searchByTitle,changeOffsetNext,changeOffsetPre}}>
                 {children}
             </AppContext.Provider>);
 };

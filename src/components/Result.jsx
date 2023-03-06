@@ -3,51 +3,69 @@ import styled from 'styled-components'
 import { useGlobalContext } from '../context'
 
 const Div=styled.div`
-
 `
-const Div1=styled.button``
+const Div1=styled.button`
+      width: 100px;
+      height: 30px;  
+`
 
 const Div2=styled.button`
- margin-left: 10px;
+      margin-left: 10px;
+      height: 30px;
+      width: 100px;
 `
 const Table=styled.table`
     margin-left: 20px;
-    margin-top: 20px;
-    border: 1px solid black;
+    margin-top: 50px;
+    margin-bottom: auto;
+    border: 3px solid black;
     border-collapse: collapse;
 `
 const Td=styled.td`
-border: 1px solid black;
-border-collapse: collapse;
-width: 400px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 400px;
+    height: 40px;
+    font-size: large;
 `
 const Th=styled.td`
-border: 1px solid black;
-border-collapse: collapse;
-width: 400px;
+      border: 3px solid black;
+      border-collapse: collapse;
+      width: 400px;
+      height: 30px;
+      font-weight: bold;
+      font-size: large;
 `
 const Tr=styled.tr`
-border: 1px solid black;
-border-collapse: collapse;
+      border: 1px solid black;
+      border-collapse: collapse;
+      font-size: large;
+      
 `
 const divX=styled.div`
-  display: flex;
-  flex-direction: row;
+      display: flex;
+      flex-direction: row;
 `
 const Div3=styled.div`
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
+     margin-top: 20px;
+      bottom: 50px;
+      right: 50px;
+`
+const Div6=styled.div`
+      margin-top: 70px;
+      bottom: 50px;
+      right: 50px;
+      font-size: 60px;
 `
 
 const Result = (searchtype) => {
 
-  const {data,changeOffsetPre,changeOffsetNext,isLoading,subject_or_title}=useGlobalContext();
-  console.log(subject_or_title);
+  const {data,changeOffsetPre,changeOffsetNext,isLoading,offset}=useGlobalContext();
+  console.log(data);
 
   console.log(data);
   if(isLoading)
-      return (<div> Loading...</div>)
+      return (<Div6> Loading...</Div6>)
   
   return (
     <div>
@@ -57,21 +75,22 @@ const Result = (searchtype) => {
                   <Tr>
                         <Th>Title</Th>
                         <Th>Author</Th>
+                        <Th>First Publish Year</Th>
                   </Tr>  
           </thead>
             { 
               data && data.map(item=>{            
               return(<Tr>                                               
-                                  <Td>{item.title}</Td>
-                                  {/* <Td>{subject_or_title?item.authors[0].name:item.author_name}</Td>                           */}
-
+                              <Td>{item.title}</Td>
+                              <Td>{item.author_name?item.author_name:item.authors[0].name}</Td>                          
+                              <Td>{item.first_publish_year}</Td>                         
                     </Tr>)
             })
          }
          </Table>
       </Div>    
       <Div3>
-            <Div1 onClick={()=>changeOffsetPre()}>  Pre..  </Div1>
+            <Div1 onClick={()=>changeOffsetPre()} > Pre... </Div1>
             <Div2 onClick={()=>changeOffsetNext()}> Next </Div2>
       </Div3>
 

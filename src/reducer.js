@@ -9,6 +9,8 @@ const reducer = (state,action)=>{
                 ...state,                
                 data:action.payload,
                 isLoading:false,
+                querySubject:"",
+                queryTitle:""
             }
         case "SEARCH_BY_SUBJECT":
             return {
